@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+
+http_port {{ squid_http_port }}
+
+{% for squid_acl in squid_acls %}
+{% if squid_acl is string %}
+acl {{ squid_acl }}
+{% else %}
+acl {{ squid_acl.name }} {{ squid_acl.type }} {{ squid_acl.arg }}
+{% endif %}
+{% endfor %}
+
+{% for squid_http_access in squid_http_accesses %}
+{% if squid_http_access is string %}
+http_access {{ squid_http_access }}
+{% else %}
+http_access {{ squid_http_access.action }} {{ squid_http_access.acl is string | ternary(squid_http_access.acl, squid_http_access.acl | join(' ')) }}
+{% endif %}
+{% endfor %}
+
+httpd_suppress_version_string on
+via off

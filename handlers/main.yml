@@ -1,2 +1,12 @@
 ---
 # handlers file for ansible-role-squid
+- name: squid reload
+  service:
+    name: "{{ squid_service }}"
+    state: reloaded
+  become: yes
+
+- name: squid configtest and reload
+  command: "{{ squid_service }} -k check"
+  notify:
+    - squid reload

@@ -1,2 +1,36 @@
 ---
 # tasks file for ansible-role-squid
+
+- name: load distribution specific vars
+  include_vars: "{{ ansible_distribution }}.yml"
+
+- block:
+
+  - name: install pkg
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+      install_recommends: no
+    with_items:
+      - "{{ squid_pkg }}"
+      - "{{ squid_dependencies }}"
+
+  become: yes
+  tags:
+    - install
+    - squid
+
+- block:
+
+    - name: setup
+      template:
+        src: squid.conf.j2
+        dest: "{{ squid_root }}/squid.conf"
+      notify: squid configtest and reload
+
+  become: yes
+  tags:
+    - setup
+    - squid
