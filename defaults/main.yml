@@ -1,2 +1,43 @@
 ---
 # defaults file for ansible-role-squid
+squid_dependencies: []
+squid_http_port: 3128
+
+squid_acls:
+
+  # dict records examples
+  - name: localnet
+    type: src
+    arg: 10.0.0.0/8
+  - name: localnet
+    type: src
+    arg: 172.16.0.0/12
+  - name: localnet
+    type: src
+    arg: 192.168.0.0/16
+  - name: ssl_ports
+    type: port
+    arg: 443
+  - name: connect
+    type: method
+    arg: CONNECT
+
+  # string records examples
+  - safe_ports port 80
+  - safe_ports port 443
+
+squid_http_accesses:
+
+  # dict records examples
+  - action: allow
+    acl:
+      - manager
+      - localhost
+  - action: deny
+    acl: manager
+
+  # string records example
+  - deny !safe_ports
+  - deny connect !ssl_ports
+  - allow localnet
+  - deny all
