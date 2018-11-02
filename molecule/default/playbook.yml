@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-squid
+      squid_acls:
+        - ssl_ports port 443
+        - connect method CONNECT
+        - safe_ports port 80
+        - safe_ports port 443
+      squid_http_accesses:
+        - allow manager localhost
+        - deny manager
+        - deny !safe_ports
+        - deny connect !ssl_ports
+        - allow all

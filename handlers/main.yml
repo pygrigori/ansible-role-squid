@@ -4,9 +4,4 @@
   service:
     name: "{{ squid_service }}"
     state: reloaded
-  become: yes
-
-- name: squid configtest and reload
-  command: "{{ squid_service }} -k check"
-  notify:
-    - squid reload
+  become: true
