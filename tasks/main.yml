@@ -6,31 +6,28 @@
 
 - block:
 
-  - name: install pkg
+  - name: install
     apt:
       name: "{{ item }}"
       state: present
-      update_cache: yes
+      update_cache: true
       cache_valid_time: 3600
-      install_recommends: no
+      install_recommends: false
     with_items:
       - "{{ squid_pkg }}"
       - "{{ squid_dependencies }}"
+    tags:
+      - install
 
-  become: yes
+  - name: setup
+    template:
+      src: squid.conf.j2
+      dest: "{{ squid_root }}/squid.conf"
+      validate: "{{ squid_service }} -k parse -f %s"
+    notify: squid reload
+    tags:
+      - setup
+
+  become: true
   tags:
-    - install
-    - squid
-
-- block:
-
-    - name: setup
-      template:
-        src: squid.conf.j2
-        dest: "{{ squid_root }}/squid.conf"
-      notify: squid configtest and reload
-
-  become: yes
-  tags:
-    - setup
     - squid
