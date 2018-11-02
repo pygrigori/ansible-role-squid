@@ -10,6 +10,8 @@ platforms:
     image: ubuntu:trusty
   - name: xenial
     image: ubuntu:xenial
+  - name: stretch
+    image: debian:stretch
 provisioner:
   name: ansible
   lint:
