@@ -8,14 +8,11 @@
 
   - name: install
     apt:
-      name: "{{ item }}"
+      name: "{{ squid_dependencies + [squid_pkg] }}"
       state: present
       update_cache: true
       cache_valid_time: 3600
       install_recommends: false
-    with_items:
-      - "{{ squid_pkg }}"
-      - "{{ squid_dependencies }}"
     tags:
       - install
 
