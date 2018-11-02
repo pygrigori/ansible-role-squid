@@ -8,7 +8,7 @@
 
   - name: install
     apt:
-      name: "{{ squid_dependencies + [squid_pkg] }}"
+      name: "{{ squid_dependencies + squid_pkg is string | ternary([squid_pkg], squid_pkg) }}"
       state: present
       update_cache: true
       cache_valid_time: 3600
