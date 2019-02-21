@@ -3,6 +3,10 @@
 
 - name: load distribution specific vars
   include_vars: "{{ ansible_distribution }}.yml"
+  tags:
+    - squid
+    - setup
+    - install
 
 - block:
 
