@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: Grigori Py
-  description: Installs and configures a squid proxy
-  # company: your company (optional)
+  description: Squid role
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -38,6 +37,9 @@ galaxy_info:
       versions:
         - trusty
         - xenial
+    - name: Debian
+      versions:
+        - stretch
 
   galaxy_tags: []
   # List tags for your role here, one per line. A tag is a keyword that describes
