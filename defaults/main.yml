@@ -1,6 +1,17 @@
 ---
 # defaults file for ansible-role-squid
 squid_dependencies: []
+
+squid_key: ''
+squid_repo: ''
+
+squid_pkg:
+  - "{{ squid_service }}"
+  - squidclient
+
+squid_root: "/etc/{{ squid_service }}"
+squid_service: "{{ (ansible_distribution_release == 'trusty') | ternary('squid3', 'squid') }}"
+
 squid_config: |
   http_port 3128
 

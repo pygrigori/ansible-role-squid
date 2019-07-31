@@ -1,5 +1,0 @@
----
-# Ubuntu distribution vars file for ansible-role-squid
-squid_pkg: "{{ (ansible_distribution_version >= '16.04') | ternary('squid', 'squid3') }}"
-squid_root: "{{ (ansible_distribution_version >= '16.04') | ternary('/etc/squid', '/etc/squid3') }}"
-squid_service: "{{ (ansible_distribution_version >= '16.04') | ternary('squid', 'squid3') }}"

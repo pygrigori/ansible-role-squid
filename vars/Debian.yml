@@ -1,5 +1,0 @@
----
-# Ubuntu distribution vars file for ansible-role-squid
-squid_pkg: squid
-squid_root: /etc/squid
-squid_service: squid
